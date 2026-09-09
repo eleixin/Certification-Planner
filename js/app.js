@@ -50,7 +50,7 @@ const App = {
     document.getElementById('btn-delete')?.addEventListener('click', () => this.deleteProject());
     document.getElementById('btn-save-default')?.addEventListener('click', () => {
       window.Storage.saveAsDefault(this.projects);
-      alert('已成功将当前所有项目与排期配置保存为默认基线！\n以后随时点击【🔄 重置】均会恢复至当前状态。');
+      alert('已成功将当前项目与排期配置保存为默认基线！\n点击【🔄 重置】即可恢复至此状态。');
     });
 
     document.getElementById('btn-reset')?.addEventListener('click', () => {
@@ -147,6 +147,7 @@ const App = {
     if (el('input-period')) el('input-period').value = '';
     if (el('input-dvt')) el('input-dvt').value = '0';
     if (el('input-pvt')) el('input-pvt').value = '0';
+    if (el('input-cert-fee')) el('input-cert-fee').value = '';
     
     // Default start weeks to current week or 2026-W35
     const today = new Date();
@@ -171,6 +172,7 @@ const App = {
     if (el('input-period')) el('input-period').value = p.period || '';
     if (el('input-dvt')) el('input-dvt').value = p.dvt ?? 0;
     if (el('input-pvt')) el('input-pvt').value = p.pvt ?? 0;
+    if (el('input-cert-fee')) el('input-cert-fee').value = p.certFee || '';
     
     const readyVal = p.readyWeek || p.swReadyWeek || p.hwReadyWeek || '';
     if (el('input-ready-week')) el('input-ready-week').value = readyVal;
@@ -340,6 +342,7 @@ const App = {
       period: el('input-period')?.value || '',
       dvt: parseInt(el('input-dvt')?.value) || 0,
       pvt: parseInt(el('input-pvt')?.value) || 0,
+      certFee: el('input-cert-fee')?.value.trim() || '',
       readyWeek: readyWeekVal,
       hwReadyWeek: readyWeekVal,
       swReadyWeek: readyWeekVal,

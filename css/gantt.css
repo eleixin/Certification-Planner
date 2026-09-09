@@ -19,7 +19,7 @@
 }
 
 .project-info-header {
-  width: 495px;
+  width: 575px;
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
@@ -77,7 +77,7 @@
 }
 
 .project-info-sticky {
-  width: 495px;
+  width: 575px;
   flex-shrink: 0;
   position: sticky;
   left: 0;
@@ -85,6 +85,19 @@
   background-color: #ffffff;
   border-right: 2px solid #cbd5e1;
   box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  min-height: 100%;
+  background-image: 
+    linear-gradient(to bottom, var(--border-color) 1px, transparent 1px),
+    linear-gradient(to right, 
+      transparent 39px, var(--border-color) 39px, var(--border-color) 40px,
+      transparent 40px, transparent 119px, var(--border-color) 119px, var(--border-color) 120px,
+      transparent 120px, transparent 314px, var(--border-color) 314px, var(--border-color) 315px,
+      transparent 315px, transparent 384px, var(--border-color) 384px, var(--border-color) 385px,
+      transparent 385px, transparent 439px, var(--border-color) 439px, var(--border-color) 440px,
+      transparent 440px, transparent 494px, var(--border-color) 494px, var(--border-color) 495px,
+      transparent 495px
+    );
+  background-size: 100% 40px, 100% 100%;
 }
 
 .col {
@@ -107,7 +120,8 @@
 .col-operator { width: 195px; flex-shrink: 0; font-weight: 600; color: #0f172a; }
 .col-period { width: 70px; flex-shrink: 0; color: #0284c7; font-weight: 600; }
 .col-dvt { width: 55px; flex-shrink: 0; justify-content: center; color: #475569; }
-.col-pvt { width: 55px; flex-shrink: 0; justify-content: center; border-right: none; color: #475569; }
+.col-pvt { width: 55px; flex-shrink: 0; justify-content: center; color: #475569; }
+.col-fee { width: 80px; flex-shrink: 0; justify-content: center; border-right: none; color: #059669; font-weight: 600; font-size: 0.8rem; }
 
 .data-row {
   display: flex;

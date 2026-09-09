@@ -32,9 +32,9 @@
             <button class="btn btn-accent" id="btn-apply-global-ready" title="将此 Ready Week 应用到所有项目">Apply All</button>
           </div>
           <div class="toolbar-divider"></div>
-          <button class="btn btn-secondary" id="btn-export-excel">📊 Excel</button>
-          <button class="btn btn-secondary" id="btn-export-json">💾 JSON</button>
-          <button class="btn btn-secondary" id="btn-import-json">📂 导入</button>
+          <button class="btn btn-secondary" id="btn-export-excel">📊 导出Excel</button>
+          <button class="btn btn-secondary" id="btn-export-json">💾 导出配置(JSON)</button>
+          <button class="btn btn-secondary" id="btn-import-json">📂 导入配置(JSON)</button>
           <button class="btn btn-secondary" id="btn-save-default" title="把当前界面所有数据设为默认基线，后续点【重置】均恢复至此状态">📌 设为默认</button>
           <button class="btn btn-secondary" id="btn-reset" title="恢复至默认设定的认证项目数据">🔄 重置</button>
           <input type="file" id="file-import" accept=".json" hidden />
@@ -64,6 +64,7 @@
           <div class="col col-period">Period</div>
           <div class="col col-dvt" title="DVT 样机数量 (DVT Sample Quantity)">DVT Qty</div>
           <div class="col col-pvt" title="PVT 样机数量 (PVT Sample Quantity)">PVT Qty</div>
+          <div class="col col-fee" title="认证费用 (Certification Fee)">Cert Fee</div>
         </div>
         <div class="gantt-header-container" id="gantt-header-container">
           <div class="gantt-header" id="gantt-header"><!-- 年/月/周表头 --></div>
@@ -126,6 +127,10 @@
             <div class="form-group">
               <label for="input-ready-week">Ready Week (就绪周次)</label>
               <input type="week" id="input-ready-week" />
+            </div>
+            <div class="form-group">
+              <label for="input-cert-fee">Cert Fee (认证费用)</label>
+              <input type="text" id="input-cert-fee" placeholder="如 $5,000 或 ￥30,000" />
             </div>
           </div>
           <div class="form-row" id="insert-pos-row">
@@ -219,12 +224,12 @@
   </div>
 
   <!-- 核心逻辑脚本（优先加载，不受外网 CDN 网络阻塞） -->
-  <script src="js/data.js?v=57"></script>
-  <script src="js/scheduler.js?v=57"></script>
-  <script src="js/storage.js?v=57"></script>
-  <script src="js/gantt.js?v=57"></script>
-  <script src="js/excel.js?v=57"></script>
-  <script src="js/app.js?v=57"></script>
+  <script src="js/data.js?v=63"></script>
+  <script src="js/scheduler.js?v=63"></script>
+  <script src="js/storage.js?v=63"></script>
+  <script src="js/gantt.js?v=63"></script>
+  <script src="js/excel.js?v=63"></script>
+  <script src="js/app.js?v=63"></script>
 
   <!-- Excel 导出第三方库（异步按需，即使网络挂掉也不影响甘特图显示） -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.min.js" defer></script>

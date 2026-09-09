@@ -5,24 +5,16 @@
     "period": "9 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 0,
-    "ivWeeks": [
-      2
-    ],
+    "ivWeeks": [2],
     "ivFixWeeks": [],
     "officialRounds": 3,
-    "offWeeks": [
-      1,
-      1,
-      1
-    ],
-    "offFixWeeks": [
-      2,
-      2
-    ],
+    "offWeeks": [1, 1, 1],
+    "offFixWeeks": [2, 2],
     "enableDHL": true,
     "dhlWeeks": 1,
     "id": "mso5veinhmrl4"
@@ -33,23 +25,15 @@
     "period": "8 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      1,
-      1,
-      1
-    ],
-    "ivFixWeeks": [
-      2,
-      2
-    ],
+    "ivWeeks": [1, 1, 1],
+    "ivFixWeeks": [2, 2],
     "officialRounds": 0,
-    "offWeeks": [
-      4
-    ],
+    "offWeeks": [4],
     "offFixWeeks": [],
     "enableDHL": false,
     "dhlWeeks": 2,
@@ -61,18 +45,15 @@
     "period": "5 Wks",
     "dvt": 0,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 1,
-    "ivWeeks": [
-      4
-    ],
+    "ivWeeks": [4],
     "ivFixWeeks": [],
     "officialRounds": 0,
-    "offWeeks": [
-      4
-    ],
+    "offWeeks": [4],
     "offFixWeeks": [],
     "enableDHL": false,
     "dhlWeeks": 2,
@@ -84,23 +65,15 @@
     "period": "7 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      1,
-      1,
-      1
-    ],
-    "ivFixWeeks": [
-      1,
-      1
-    ],
+    "ivWeeks": [1, 1, 1],
+    "ivFixWeeks": [1, 1],
     "officialRounds": 1,
-    "offWeeks": [
-      1
-    ],
+    "offWeeks": [1],
     "offFixWeeks": [],
     "enableDHL": false,
     "dhlWeeks": 2,
@@ -112,23 +85,15 @@
     "period": "10 Wks",
     "dvt": 2,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      1,
-      1,
-      2
-    ],
-    "ivFixWeeks": [
-      2,
-      2
-    ],
+    "ivWeeks": [1, 1, 2],
+    "ivFixWeeks": [2, 2],
     "officialRounds": 1,
-    "offWeeks": [
-      1
-    ],
+    "offWeeks": [1],
     "offFixWeeks": [],
     "enableDHL": true,
     "dhlWeeks": 2,
@@ -140,27 +105,16 @@
     "period": "16 Wks",
     "dvt": 2,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      1,
-      1,
-      1
-    ],
-    "ivFixWeeks": [
-      3,
-      3
-    ],
+    "ivWeeks": [1, 1, 1],
+    "ivFixWeeks": [3, 3],
     "officialRounds": 2,
-    "offWeeks": [
-      2,
-      2
-    ],
-    "offFixWeeks": [
-      1
-    ],
+    "offWeeks": [2, 2],
+    "offFixWeeks": [1],
     "enableDHL": true,
     "dhlWeeks": 2,
     "id": "mso5vein6ceht"
@@ -171,27 +125,16 @@
     "period": "10 Wks",
     "dvt": 2,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      1,
-      1,
-      1
-    ],
-    "ivFixWeeks": [
-      2,
-      1
-    ],
+    "ivWeeks": [1, 1, 1],
+    "ivFixWeeks": [2, 1],
     "officialRounds": 2,
-    "offWeeks": [
-      1,
-      1
-    ],
-    "offFixWeeks": [
-      1
-    ],
+    "offWeeks": [1, 1],
+    "offFixWeeks": [1],
     "enableDHL": true,
     "dhlWeeks": 1,
     "id": "proj_mso9k5489o2r"
@@ -202,24 +145,16 @@
     "period": "8 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 0,
-    "ivWeeks": [
-      2
-    ],
+    "ivWeeks": [2],
     "ivFixWeeks": [],
     "officialRounds": 3,
-    "offWeeks": [
-      1,
-      1,
-      1
-    ],
-    "offFixWeeks": [
-      2,
-      1
-    ],
+    "offWeeks": [1, 1, 1],
+    "offFixWeeks": [2, 1],
     "enableDHL": true,
     "dhlWeeks": 1,
     "id": "proj_mso9mm3ps4sb"
@@ -230,23 +165,15 @@
     "period": "12 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      2,
-      2,
-      2
-    ],
-    "ivFixWeeks": [
-      3,
-      2
-    ],
+    "ivWeeks": [2, 2, 2],
+    "ivFixWeeks": [3, 2],
     "officialRounds": 0,
-    "offWeeks": [
-      4
-    ],
+    "offWeeks": [4],
     "offFixWeeks": [],
     "enableDHL": false,
     "dhlWeeks": 2,
@@ -258,23 +185,15 @@
     "period": "12 Wks",
     "dvt": 1,
     "pvt": 0,
+    "certFee": "",
     "readyWeek": "2026-W35",
     "hwReadyWeek": "2026-W35",
     "swReadyWeek": "2026-W35",
     "ivRounds": 3,
-    "ivWeeks": [
-      2,
-      2,
-      2
-    ],
-    "ivFixWeeks": [
-      3,
-      2
-    ],
+    "ivWeeks": [2, 2, 2],
+    "ivFixWeeks": [3, 2],
     "officialRounds": 0,
-    "offWeeks": [
-      4
-    ],
+    "offWeeks": [4],
     "offFixWeeks": [],
     "enableDHL": false,
     "dhlWeeks": 2,

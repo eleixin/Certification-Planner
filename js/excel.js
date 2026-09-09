@@ -12,54 +12,59 @@ const ExcelExporter = {
     const wsData = [];
     const merges = [];
 
-    // Row 1: Years
-    const yearRow = ["", "", "", "", "", ""];
+    // Row 1: Years & Left Column Titles
+    const yearRow = ["#", "Region", "Cert Type", "Period", "DVT Qty", "PVT Qty", "Cert Fee"];
     let currentYear = null;
-    let yearStartCol = 6;
+    let yearStartCol = 7;
     weeks.forEach((week, i) => {
       const year = week.substring(0, 4);
       yearRow.push(year);
       if (year !== currentYear) {
         if (currentYear !== null) {
-            merges.push({s: {r: 0, c: yearStartCol}, e: {r: 0, c: 6 + i - 1}});
+            merges.push({s: {r: 0, c: yearStartCol}, e: {r: 0, c: 7 + i - 1}});
         }
         currentYear = year;
-        yearStartCol = 6 + i;
+        yearStartCol = 7 + i;
       }
     });
-    if (currentYear !== null) merges.push({s: {r: 0, c: yearStartCol}, e: {r: 0, c: 6 + weeks.length - 1}});
+    if (currentYear !== null) merges.push({s: {r: 0, c: yearStartCol}, e: {r: 0, c: 7 + weeks.length - 1}});
     wsData.push(yearRow);
 
     // Row 2: Months
-    const monthRow = ["", "", "", "", "", ""];
+    const monthRow = ["", "", "", "", "", "", ""];
     let currentMonth = null;
-    let monthStartCol = 6;
+    let monthStartCol = 7;
     weeks.forEach((week, i) => {
       const month = window.CertData.getWeekMonth(week);
       monthRow.push(month);
       if (month !== currentMonth) {
         if (currentMonth !== null) {
-          merges.push({s: {r: 1, c: monthStartCol}, e: {r: 1, c: 6 + i - 1}});
+          merges.push({s: {r: 1, c: monthStartCol}, e: {r: 1, c: 7 + i - 1}});
         }
         currentMonth = month;
-        monthStartCol = 6 + i;
+        monthStartCol = 7 + i;
       }
     });
-    if (currentMonth !== null) merges.push({s: {r: 1, c: monthStartCol}, e: {r: 1, c: 6 + weeks.length - 1}});
+    if (currentMonth !== null) merges.push({s: {r: 1, c: monthStartCol}, e: {r: 1, c: 7 + weeks.length - 1}});
     wsData.push(monthRow);
 
     // Row 3: Week numbers
-    const weekRow = ["#", "Region", "Cert Type", "Period", "DVT Qty", "PVT Qty"];
+    const weekRow = ["", "", "", "", "", "", ""];
     weeks.forEach(week => {
       weekRow.push(week.split('-W')[1]);
     });
     wsData.push(weekRow);
 
+    // Vertically merge left 7 columns across header Rows 0, 1, 2
+    for (let c = 0; c < 7; c++) {
+      merges.push({ s: { r: 0, c }, e: { r: 2, c } });
+    }
+
     // Rows: Projects
     projects.forEach((p, pIndex) => {
       const totalWeeks = window.Scheduler.calculateProjectTotalWeeks ? window.Scheduler.calculateProjectTotalWeeks(p) : 0;
       const periodDisplay = totalWeeks > 0 ? `${totalWeeks} weeks` : (p.period || '-');
-      const row = [pIndex + 1, p.region, p.operator, periodDisplay, p.dvt, p.pvt];
+      const row = [pIndex + 1, p.region, p.operator, periodDisplay, p.dvt, p.pvt, p.certFee || '-'];
       weeks.forEach(() => row.push(""));
       wsData.push(row);
 
@@ -109,7 +114,7 @@ const ExcelExporter = {
           label += ' (DHL)';
         }
 
-        row[6 + startIndex] = {
+        row[7 + startIndex] = {
             v: label,
             t: 's',
             s: {
@@ -120,7 +125,7 @@ const ExcelExporter = {
         };
 
         if (endIndex > startIndex) {
-            merges.push({ s: {r: r, c: 6 + startIndex}, e: {r: r, c: 6 + endIndex} });
+            merges.push({ s: {r: r, c: 7 + startIndex}, e: {r: r, c: 7 + endIndex} });
         }
       });
 
@@ -136,7 +141,7 @@ const ExcelExporter = {
             if (unmergedStart === null) unmergedStart = i;
           } else {
             if (unmergedStart !== null) {
-              row[6 + unmergedStart] = {
+              row[7 + unmergedStart] = {
                 v: 'DHL',
                 t: 's',
                 s: {
@@ -146,14 +151,14 @@ const ExcelExporter = {
                 }
               };
               if (i - 1 > unmergedStart) {
-                merges.push({ s: { r: r, c: 6 + unmergedStart }, e: { r: r, c: 6 + (i - 1) } });
+                merges.push({ s: { r: r, c: 7 + unmergedStart }, e: { r: r, c: 7 + (i - 1) } });
               }
               unmergedStart = null;
             }
           }
         }
         if (unmergedStart !== null) {
-          row[6 + unmergedStart] = {
+          row[7 + unmergedStart] = {
             v: 'DHL',
             t: 's',
             s: {
@@ -163,7 +168,7 @@ const ExcelExporter = {
             }
           };
           if (endIndex > unmergedStart) {
-            merges.push({ s: { r: r, c: 6 + unmergedStart }, e: { r: r, c: 6 + endIndex } });
+            merges.push({ s: { r: r, c: 7 + unmergedStart }, e: { r: r, c: 7 + endIndex } });
           }
         }
       });
@@ -182,9 +187,9 @@ const ExcelExporter = {
           alignment: { horizontal: 'left', vertical: 'center' }
         }
       },
-      "", "", "", "", ""
+      "", "", "", "", "", ""
     ]);
-    merges.push({ s: { r: legendTitleRowIndex, c: 0 }, e: { r: legendTitleRowIndex, c: 5 } });
+    merges.push({ s: { r: legendTitleRowIndex, c: 0 }, e: { r: legendTitleRowIndex, c: 6 } });
 
     const LEGEND_ITEMS = [
       { type: 'ready',    label: 'Ready',    desc: 'Hardware & Software Ready (软硬件就绪)' },
@@ -218,11 +223,11 @@ const ExcelExporter = {
             alignment: { horizontal: 'left', vertical: 'center' }
           }
         },
-        "", "", ""
+        "", "", "", ""
       ];
       wsData.push(itemRow);
       const currentRowIndex = legendStartRowIndex + itemIdx;
-      merges.push({ s: { r: currentRowIndex, c: 2 }, e: { r: currentRowIndex, c: 5 } });
+      merges.push({ s: { r: currentRowIndex, c: 2 }, e: { r: currentRowIndex, c: 6 } });
     });
 
     const ws = window.XLSX.utils.aoa_to_sheet(wsData);
@@ -234,20 +239,47 @@ const ExcelExporter = {
       {wch: 12},
       {wch: 8},
       {wch: 8},
+      {wch: 12},
       ...weeks.map(() => ({wch: 10}))
     ];
 
+    const thinBorder = {
+      top: { style: 'thin', color: { rgb: 'CBD5E1' } },
+      bottom: { style: 'thin', color: { rgb: 'CBD5E1' } },
+      left: { style: 'thin', color: { rgb: 'CBD5E1' } },
+      right: { style: 'thin', color: { rgb: 'CBD5E1' } }
+    };
+
+    // Apply header styles to Rows 0, 1, 2
     for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 6 + weeks.length; c++) {
-            const cellAddr = window.XLSX.utils.encode_cell({r, c});
-            if (ws[cellAddr] && !ws[cellAddr].s) {
-                ws[cellAddr].s = {
-                    font: { bold: true },
-                    alignment: { horizontal: 'center', vertical: 'center' },
-                    fill: { fgColor: { rgb: 'E2E8F0' } }
-                };
-            }
+      for (let c = 0; c < 7 + weeks.length; c++) {
+        const cellAddr = window.XLSX.utils.encode_cell({r, c});
+        if (!ws[cellAddr]) ws[cellAddr] = { v: '', t: 's' };
+        ws[cellAddr].s = {
+          font: { bold: true, sz: 10, color: { rgb: '0F172A' } },
+          alignment: { horizontal: 'center', vertical: 'center', wrapText: true },
+          fill: { fgColor: { rgb: 'E2E8F0' } },
+          border: thinBorder
+        };
+      }
+    }
+
+    // Apply borders to all project data rows
+    for (let pIdx = 0; pIdx < projects.length; pIdx++) {
+      const r = 3 + pIdx;
+      for (let c = 0; c < 7 + weeks.length; c++) {
+        const cellAddr = window.XLSX.utils.encode_cell({r, c});
+        if (!ws[cellAddr]) ws[cellAddr] = { v: '', t: 's' };
+        if (!ws[cellAddr].s) {
+          ws[cellAddr].s = {
+            font: { sz: 9.5, color: { rgb: '334155' } },
+            alignment: { horizontal: c === 2 ? 'left' : 'center', vertical: 'center' },
+            border: thinBorder
+          };
+        } else {
+          ws[cellAddr].s.border = thinBorder;
         }
+      }
     }
 
     const wb = window.XLSX.utils.book_new();

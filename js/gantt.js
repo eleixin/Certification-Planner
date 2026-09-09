@@ -164,6 +164,7 @@ const GanttRenderer = {
         <div class="col col-period" title="Total Duration: ${periodDisplay}">${periodDisplay}</div>
         <div class="col col-dvt" title="DVT 样机数量: ${p.dvt} 台">${p.dvt}</div>
         <div class="col col-pvt" title="PVT 样机数量: ${p.pvt} 台">${p.pvt}</div>
+        <div class="col col-fee" title="认证费用: ${p.certFee || '-'}">${p.certFee || '-'}</div>
       `;
       row.addEventListener('click', (e) => {
         if (window.App && window.App.selectProject) window.App.selectProject(p.id);

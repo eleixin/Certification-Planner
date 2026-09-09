@@ -47,6 +47,29 @@ const Storage = {
     }
   },
 
+  async fetchDefaultProjects() {
+    try {
+      const res = await fetch('default-projects.json?t=' + Date.now());
+      if (res.ok) {
+        const parsed = await res.json();
+        let items = parsed;
+        if (items && !Array.isArray(items)) {
+          if (Array.isArray(items.projects)) items = items.projects;
+          else if (Array.isArray(items.data)) items = items.data;
+          else if (Array.isArray(items.items)) items = items.items;
+        }
+        if (Array.isArray(items) && items.length > 0) {
+          const cleaned = items.map(p => window.CertData.createProject(p));
+          return window.CertData.sortProjectsByRegion ? window.CertData.sortProjectsByRegion(cleaned) : cleaned;
+        }
+      }
+    } catch (e) {
+      console.log('Using default JS fallback for projects:', e);
+    }
+    const defaults = window.CertData.DEFAULT_PROJECTS.map(p => window.CertData.createProject(p));
+    return window.CertData.sortProjectsByRegion ? window.CertData.sortProjectsByRegion(defaults) : defaults;
+  },
+
   resetToDefault() {
     try {
       const customDefault = localStorage.getItem(DEFAULT_KEY);
@@ -66,6 +89,18 @@ const Storage = {
     try {
       localStorage.setItem(KEY, JSON.stringify(sortedDefaults));
     } catch (e) {}
+
+    // Async check to load default-projects.json if available
+    this.fetchDefaultProjects().then(fetched => {
+      if (fetched && fetched.length > 0 && !localStorage.getItem(DEFAULT_KEY)) {
+        this.saveProjects(fetched);
+        if (window.GanttRenderer && window.App) {
+          window.App.projects = fetched;
+          window.GanttRenderer.renderGantt(fetched);
+        }
+      }
+    });
+
     return sortedDefaults;
   },
 
