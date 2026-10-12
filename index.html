@@ -13,9 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/index.css?v=27">
-  <link rel="stylesheet" href="css/gantt.css?v=27">
-  <link rel="stylesheet" href="css/modal.css?v=27">
+  <link rel="stylesheet" href="css/index.css?v=66">
+  <link rel="stylesheet" href="css/gantt.css?v=66">
+  <link rel="stylesheet" href="css/modal.css?v=66">
 </head>
 <body>
   <div class="app-container">
@@ -25,6 +25,9 @@
         <h1>📋 Certification Planner</h1>
         <div class="toolbar-actions">
           <button class="btn btn-primary" id="btn-add">+ 新增项目</button>
+          <button class="btn btn-secondary" id="btn-copy" title="复制当前选中的项目并插入到下一行">📋 复制项目</button>
+          <button class="btn btn-secondary" id="btn-move-up" title="将当前选中的项目向上移动一行">⬆️ 上移</button>
+          <button class="btn btn-secondary" id="btn-move-down" title="将当前选中的项目向下移动一行">⬇️ 下移</button>
           <div class="toolbar-divider"></div>
           <div class="global-ready-group">
             <label for="input-global-ready">Global Ready</label>
@@ -135,7 +138,7 @@
           </div>
           <div class="form-row" id="insert-pos-row">
             <div class="form-group" style="flex: 1;">
-              <label for="input-insert-pos">新增项目插入位置</label>
+              <label for="input-insert-pos" id="label-insert-pos">新增项目插入位置</label>
               <select id="input-insert-pos">
                 <option value="after-selected">插入在选中的行下方</option>
                 <option value="end">插入在列表末尾</option>
@@ -216,6 +219,7 @@
       <div class="modal-footer">
         <button class="btn btn-danger" id="btn-delete" style="display:none">删除</button>
         <div class="footer-right">
+          <button class="btn btn-secondary" id="btn-modal-copy" style="display:none" title="将当前项目配置复制一份并插入到下一行">📋 复制到下一行</button>
           <button class="btn btn-secondary" id="btn-cancel">取消</button>
           <button class="btn btn-primary" id="btn-save">保存</button>
         </div>
@@ -224,12 +228,12 @@
   </div>
 
   <!-- 核心逻辑脚本（优先加载，不受外网 CDN 网络阻塞） -->
-  <script src="js/data.js?v=63"></script>
-  <script src="js/scheduler.js?v=63"></script>
-  <script src="js/storage.js?v=63"></script>
-  <script src="js/gantt.js?v=63"></script>
-  <script src="js/excel.js?v=63"></script>
-  <script src="js/app.js?v=63"></script>
+  <script src="js/data.js?v=66"></script>
+  <script src="js/scheduler.js?v=66"></script>
+  <script src="js/storage.js?v=66"></script>
+  <script src="js/gantt.js?v=66"></script>
+  <script src="js/excel.js?v=66"></script>
+  <script src="js/app.js?v=66"></script>
 
   <!-- Excel 导出第三方库（异步按需，即使网络挂掉也不影响甘特图显示） -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.min.js" defer></script>

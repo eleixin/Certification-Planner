@@ -103,8 +103,9 @@ function generateSchedule(project) {
   return phases;
 }
 
-function getTimelineRange(projects) {
-  if (!projects || projects.length === 0) return { startWeek: null, endWeek: null };
+function getTimelineRange(projects, forExport = false) {
+  const defaultEndWeek = '2027-W52';
+  if (!projects || projects.length === 0) return { startWeek: '2026-W35', endWeek: defaultEndWeek };
   
   const { offsetWeek, weekDiff } = window.CertData;
   let minWeek = null;
@@ -126,11 +127,19 @@ function getTimelineRange(projects) {
     });
   });
   
-  if (!minWeek || !maxWeek) return { startWeek: null, endWeek: null };
+  if (!minWeek || !maxWeek) return { startWeek: '2026-W35', endWeek: defaultEndWeek };
+  
+  const startWeek = offsetWeek(minWeek, -2);
+  let endWeek = offsetWeek(maxWeek, 2);
+  
+  // 网页端默认延伸覆盖整个 2027 年 (2027-W52)，若进度超出则随进度同步向后延伸
+  if (!forExport && weekDiff(defaultEndWeek, endWeek) > 0) {
+    endWeek = defaultEndWeek;
+  }
   
   return {
-    startWeek: offsetWeek(minWeek, -2),
-    endWeek: offsetWeek(maxWeek, 2)
+    startWeek,
+    endWeek
   };
 }
 

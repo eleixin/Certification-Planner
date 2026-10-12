@@ -59,11 +59,15 @@ const GanttRenderer = {
 
     let range = window.Scheduler.getTimelineRange(projects);
     if (!range.startWeek || !range.endWeek) {
-      range = { startWeek: '2026-W35', endWeek: '2026-W52' };
+      range = { startWeek: '2026-W35', endWeek: '2027-W52' };
     }
 
     const schedules = projects.map(p => window.Scheduler.generateSchedule(p));
     const weeks = window.CertData.getWeekRange(range.startWeek, range.endWeek);
+
+    const totalWidth = `calc(var(--cell-width, 40px) * ${weeks.length})`;
+    if (headerEl) headerEl.style.width = totalWidth;
+    if (ganttBodyEl) ganttBodyEl.style.width = totalWidth;
 
     this.renderHeader(weeks);
     this.renderProjectInfo(projects);
@@ -157,8 +161,10 @@ const GanttRenderer = {
       const isSelected = window.App && window.App.selectedId === p.id;
       row.className = 'data-row' + (isSelected ? ' selected' : '');
       row.dataset.id = p.id;
+      row.dataset.index = index;
+      row.draggable = true;
       row.innerHTML = `
-        <div class="col col-no" title="序号 ${index + 1}">${index + 1}</div>
+        <div class="col col-no" title="序号 ${index + 1} (可上下拖拽移动位置)">${index + 1}</div>
         <div class="col col-region" title="${p.region}">${p.region}</div>
         <div class="col col-operator" title="${p.operator}">${p.operator}</div>
         <div class="col col-period" title="Total Duration: ${periodDisplay}">${periodDisplay}</div>
@@ -171,6 +177,30 @@ const GanttRenderer = {
       });
       row.addEventListener('dblclick', (e) => {
         document.dispatchEvent(new CustomEvent('edit-project', { detail: p.id }));
+      });
+      row.addEventListener('dragstart', (e) => {
+        this._dragIndex = index;
+        row.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      row.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        row.classList.add('drag-over');
+      });
+      row.addEventListener('dragleave', () => {
+        row.classList.remove('drag-over');
+      });
+      row.addEventListener('drop', (e) => {
+        e.preventDefault();
+        row.classList.remove('drag-over');
+        if (this._dragIndex !== undefined && this._dragIndex !== index && window.App?.moveProjectToIndex) {
+          window.App.moveProjectToIndex(this._dragIndex, index);
+        }
+      });
+      row.addEventListener('dragend', () => {
+        row.classList.remove('dragging');
+        container.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
       });
       container.appendChild(row);
     });
@@ -258,11 +288,18 @@ const GanttRenderer = {
 
   setupSyncScroll() {
     const scrollBody = document.getElementById('gantt-scroll-body');
-    const headerContainer = document.getElementById('gantt-header-container');
+    const headerEl = document.getElementById('gantt-header');
 
-    if (!this._scrollBound && scrollBody && headerContainer) {
+    if (scrollBody && headerEl) {
+      headerEl.style.transform = `translateX(-${scrollBody.scrollLeft}px)`;
+    }
+
+    if (!this._scrollBound && scrollBody) {
       scrollBody.addEventListener('scroll', () => {
-        headerContainer.scrollLeft = scrollBody.scrollLeft;
+        const hdr = document.getElementById('gantt-header');
+        if (hdr) {
+          hdr.style.transform = `translateX(-${scrollBody.scrollLeft}px)`;
+        }
       });
       this._scrollBound = true;
     }

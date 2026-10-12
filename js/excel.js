@@ -5,7 +5,7 @@ const ExcelExporter = {
       return;
     }
 
-    const { startWeek, endWeek } = window.Scheduler.getTimelineRange(projects);
+    const { startWeek, endWeek } = window.Scheduler.getTimelineRange(projects, true);
     const weeks = window.CertData.getWeekRange(startWeek, endWeek);
     const schedules = projects.map(p => window.Scheduler.generateSchedule(p));
 

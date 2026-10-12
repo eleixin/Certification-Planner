@@ -23,6 +23,9 @@ const App = {
 
   bindEvents() {
     document.getElementById('btn-add')?.addEventListener('click', () => this.openModal(null));
+    document.getElementById('btn-copy')?.addEventListener('click', () => this.copySelectedProject());
+    document.getElementById('btn-move-up')?.addEventListener('click', () => this.moveSelectedProject(-1));
+    document.getElementById('btn-move-down')?.addEventListener('click', () => this.moveSelectedProject(1));
     document.getElementById('btn-export-excel')?.addEventListener('click', () => window.ExcelExporter.exportToExcel(this.projects));
     document.getElementById('btn-export-json')?.addEventListener('click', () => window.Storage.exportJSON(this.projects));
 
@@ -47,6 +50,7 @@ const App = {
     document.getElementById('btn-modal-close')?.addEventListener('click', () => this.closeModal());
     document.getElementById('btn-cancel')?.addEventListener('click', () => this.closeModal());
     document.getElementById('btn-save')?.addEventListener('click', () => this.saveProject());
+    document.getElementById('btn-modal-copy')?.addEventListener('click', () => this.copyFromModal());
     document.getElementById('btn-delete')?.addEventListener('click', () => this.deleteProject());
     document.getElementById('btn-save-default')?.addEventListener('click', () => {
       window.Storage.saveAsDefault(this.projects);
@@ -104,20 +108,36 @@ const App = {
     this.editingId = projectId;
     const modal = document.getElementById('modal-overlay');
     const deleteBtn = document.getElementById('btn-delete');
+    const copyBtn = document.getElementById('btn-modal-copy');
     const title = document.getElementById('modal-title');
     const insertPosRow = document.getElementById('insert-pos-row');
+    const insertPosLabel = document.getElementById('label-insert-pos');
     const insertPosSelect = document.getElementById('input-insert-pos');
 
     if (projectId) {
       if (title) title.textContent = '编辑认证项目配置';
       if (deleteBtn) deleteBtn.style.display = 'block';
-      if (insertPosRow) insertPosRow.style.display = 'none';
-      const p = this.projects.find(x => x.id === projectId);
+      if (copyBtn) copyBtn.style.display = 'inline-flex';
+      if (insertPosRow) insertPosRow.style.display = 'block';
+      if (insertPosLabel) insertPosLabel.textContent = '项目所在行位置 (可移动至指定行)';
+
+      const curIdx = this.projects.findIndex(x => x.id === projectId);
+      const p = curIdx !== -1 ? this.projects[curIdx] : null;
+      if (insertPosSelect && curIdx !== -1) {
+        insertPosSelect.innerHTML = this.projects.map((item, i) => {
+          if (i === curIdx) {
+            return `<option value="${i}" selected>第 ${i + 1} 行 (当前位置: ${item.operator})</option>`;
+          }
+          return `<option value="${i}">移动到第 ${i + 1} 行 (${item.operator})</option>`;
+        }).join('');
+      }
       if (p) this.fillForm(p);
     } else {
       if (title) title.textContent = '新增认证项目配置';
       if (deleteBtn) deleteBtn.style.display = 'none';
+      if (copyBtn) copyBtn.style.display = 'none';
       if (insertPosRow) insertPosRow.style.display = 'block';
+      if (insertPosLabel) insertPosLabel.textContent = '新增项目插入位置';
       
       const selIdx = this.selectedId ? this.projects.findIndex(x => x.id === this.selectedId) : -1;
       if (insertPosSelect) {
@@ -394,6 +414,11 @@ const App = {
       if (idx !== -1) {
         projectData.id = this.editingId;
         this.projects[idx] = projectData;
+        const targetIdx = parseInt(el('input-insert-pos')?.value);
+        if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < this.projects.length && targetIdx !== idx) {
+          const [moved] = this.projects.splice(idx, 1);
+          this.projects.splice(targetIdx, 0, moved);
+        }
       }
     } else {
       const newProject = window.CertData.createProject(projectData);
@@ -408,6 +433,76 @@ const App = {
       this.selectedId = newProject.id;
     }
 
+    window.Storage.saveProjects(this.projects);
+    window.GanttRenderer.renderGantt(this.projects);
+    this.closeModal();
+  },
+
+  moveSelectedProject(direction) {
+    if (!this.selectedId) {
+      alert('请先单击选中要移动位置的项目行');
+      return;
+    }
+    const idx = this.projects.findIndex(x => x.id === this.selectedId);
+    if (idx === -1) {
+      alert('请先单击选中要移动位置的项目行');
+      return;
+    }
+    const targetIdx = idx + direction;
+    if (targetIdx < 0 || targetIdx >= this.projects.length) return;
+    const [moved] = this.projects.splice(idx, 1);
+    this.projects.splice(targetIdx, 0, moved);
+    window.Storage.saveProjects(this.projects);
+    window.GanttRenderer.renderGantt(this.projects);
+  },
+
+  moveProjectToIndex(fromIdx, toIdx) {
+    if (fromIdx < 0 || fromIdx >= this.projects.length) return;
+    if (toIdx < 0 || toIdx >= this.projects.length || fromIdx === toIdx) return;
+    const [moved] = this.projects.splice(fromIdx, 1);
+    this.projects.splice(toIdx, 0, moved);
+    this.selectedId = moved.id;
+    window.Storage.saveProjects(this.projects);
+    window.GanttRenderer.renderGantt(this.projects);
+  },
+
+  copySelectedProject() {
+    if (!this.selectedId) {
+      alert('请先单击选中要复制的项目行');
+      return;
+    }
+    const idx = this.projects.findIndex(x => x.id === this.selectedId);
+    if (idx === -1) {
+      alert('请先单击选中要复制的项目行');
+      return;
+    }
+    const source = JSON.parse(JSON.stringify(this.projects[idx]));
+    delete source.id;
+    const cloned = window.CertData.createProject(source);
+    this.projects.splice(idx + 1, 0, cloned);
+    this.selectedId = cloned.id;
+    window.Storage.saveProjects(this.projects);
+    window.GanttRenderer.renderGantt(this.projects);
+  },
+
+  copyFromModal() {
+    if (!this.editingId) return;
+    const el = (id) => document.getElementById(id);
+    const operator = el('input-operator')?.value.trim() || '';
+    const readyWeek = el('input-ready-week')?.value || '';
+    if (!operator || !readyWeek) {
+      alert('Cert Type (认证类型/运营商) 与 Ready Week (就绪周次) 为必填项');
+      return;
+    }
+    const idx = this.projects.findIndex(x => x.id === this.editingId);
+    const projectData = this.getTempProjectFromForm();
+    const newProject = window.CertData.createProject(projectData);
+    if (idx !== -1) {
+      this.projects.splice(idx + 1, 0, newProject);
+    } else {
+      this.projects.push(newProject);
+    }
+    this.selectedId = newProject.id;
     window.Storage.saveProjects(this.projects);
     window.GanttRenderer.renderGantt(this.projects);
     this.closeModal();

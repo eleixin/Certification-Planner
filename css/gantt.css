@@ -66,6 +66,10 @@
   box-sizing: border-box;
 }
 
+.gantt-header .year-row, .gantt-header .month-row {
+  border-bottom: 1px solid var(--border-color);
+}
+
 /* 主体统一滚动层 (单一原生垂直滚动，彻底消除左右对齐偏差) */
 .gantt-scroll-body {
   display: flex;
@@ -87,7 +91,7 @@
   box-shadow: 2px 0 8px rgba(0,0,0,0.05);
   min-height: 100%;
   background-image: 
-    linear-gradient(to bottom, var(--border-color) 1px, transparent 1px),
+    linear-gradient(to top, var(--border-color) 1px, transparent 1px),
     linear-gradient(to right, 
       transparent 39px, var(--border-color) 39px, var(--border-color) 40px,
       transparent 40px, transparent 119px, var(--border-color) 119px, var(--border-color) 120px,
@@ -157,6 +161,15 @@
   border-radius: 2px;
 }
 
+.data-row.dragging {
+  opacity: 0.5;
+}
+
+.data-row.drag-over {
+  border-top: 2px solid #0284c7 !important;
+  background-color: #e0f2fe !important;
+}
+
 .gantt-row.selected {
   background-color: rgba(186, 230, 253, 0.45) !important;
   border-bottom: 1px solid #38bdf8 !important;
@@ -201,14 +214,16 @@
 }
 
 .data-rows {
-  background-image: linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+  background-image: linear-gradient(to top, var(--border-color) 1px, transparent 1px);
   background-size: 100% 40px;
 }
 
 .gantt-body {
   position: relative;
   min-height: 100%;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+  background-image: 
+    linear-gradient(to left, var(--border-color) 1px, transparent 1px),
+    linear-gradient(to top, var(--border-color) 1px, transparent 1px);
   background-size: var(--cell-width, 40px) 40px, 100% 40px;
   background-color: #ffffff;
 }
@@ -220,14 +235,16 @@
   position: relative;
   box-sizing: border-box;
   transition: background-color 0.15s;
+  background-image: linear-gradient(to left, var(--border-color) 1px, transparent 1px);
+  background-size: var(--cell-width, 40px) 100%;
 }
 
 .gantt-row:nth-child(even) {
-  background-color: rgba(248, 250, 252, 0.8);
+  background-color: #f8fafc;
 }
 
 .gantt-row:hover {
-  background-color: rgba(224, 242, 254, 0.5);
+  background-color: #e0f2fe;
 }
 
 .phase-block {
