@@ -382,5 +382,170 @@
     "enableDHL": true,
     "dhlWeeks": 1,
     "id": "proj_mv4pptvy6ro2"
+  },
+  {
+    "region": "Common",
+    "operator": "Low blue light Cert(55X95D)",
+    "period": "9 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      2,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 2,
+    "offWeeks": [
+      2,
+      1
+    ],
+    "offFixWeeks": [
+      1
+    ],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv530970id0w"
+  },
+  {
+    "region": "Common",
+    "operator": "EMC&RF(55X95D)",
+    "period": "5 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      1,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 1,
+    "offWeeks": [
+      1
+    ],
+    "offFixWeeks": [],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv534k1ez8vn"
+  },
+  {
+    "region": "Common",
+    "operator": "ERP certification(55X95D)",
+    "period": "5 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      1,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 1,
+    "offWeeks": [
+      1
+    ],
+    "offFixWeeks": [],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv5371qkbw1k"
+  },
+  {
+    "region": "Common",
+    "operator": "ISTA-6A certification(55X95D)",
+    "period": "5 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      1,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 1,
+    "offWeeks": [
+      1
+    ],
+    "offFixWeeks": [],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv5370fbz4az"
+  },
+  {
+    "region": "Common",
+    "operator": "RED-Safety certification(55X95D)",
+    "period": "5 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      1,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 1,
+    "offWeeks": [
+      1
+    ],
+    "offFixWeeks": [],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv5371936ak5"
+  },
+  {
+    "region": "Common",
+    "operator": "ISTA 6-SAMSCLUB certification(55X95D)",
+    "period": "5 Wks",
+    "dvt": 1,
+    "pvt": 0,
+    "certFee": "",
+    "readyWeek": "2026-W48",
+    "hwReadyWeek": "2026-W48",
+    "swReadyWeek": "2026-W48",
+    "ivRounds": 2,
+    "ivWeeks": [
+      1,
+      1
+    ],
+    "ivFixWeeks": [
+      1
+    ],
+    "officialRounds": 1,
+    "offWeeks": [
+      1
+    ],
+    "offFixWeeks": [],
+    "enableDHL": true,
+    "dhlWeeks": 1,
+    "id": "proj_mv537exg1mrd"
   }
 ]
