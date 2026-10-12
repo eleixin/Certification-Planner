@@ -186,9 +186,11 @@ input:checked + .toggle-slider:before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
   font-weight: 700;
   color: #0284c7;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .number-input-group {

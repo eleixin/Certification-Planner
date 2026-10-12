@@ -72,27 +72,17 @@ const Storage = {
 
   resetToDefault() {
     try {
-      const customDefault = localStorage.getItem(DEFAULT_KEY);
-      if (customDefault) {
-        const parsed = JSON.parse(customDefault);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const cleaned = parsed.map(p => window.CertData.createProject(p));
-          const sorted = window.CertData.sortProjectsByRegion ? window.CertData.sortProjectsByRegion(cleaned) : cleaned;
-          localStorage.setItem(KEY, JSON.stringify(sorted));
-          return sorted;
-        }
-      }
+      localStorage.removeItem(DEFAULT_KEY);
     } catch (e) {}
 
     const defaults = window.CertData.DEFAULT_PROJECTS.map(p => window.CertData.createProject(p));
-    const sortedDefaults = window.CertData.sortProjectsByRegion ? window.CertData.sortProjectsByRegion(defaults) : defaults;
     try {
-      localStorage.setItem(KEY, JSON.stringify(sortedDefaults));
+      localStorage.setItem(KEY, JSON.stringify(defaults));
     } catch (e) {}
 
-    // Async check to load default-projects.json if available
+    // Async load from default-projects.json and update UI immediately
     this.fetchDefaultProjects().then(fetched => {
-      if (fetched && fetched.length > 0 && !localStorage.getItem(DEFAULT_KEY)) {
+      if (fetched && fetched.length > 0) {
         this.saveProjects(fetched);
         if (window.GanttRenderer && window.App) {
           window.App.projects = fetched;
@@ -101,7 +91,7 @@ const Storage = {
       }
     });
 
-    return sortedDefaults;
+    return defaults;
   },
 
   exportJSON(projects) {

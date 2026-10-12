@@ -19,7 +19,7 @@
 }
 
 .project-info-header {
-  width: 575px;
+  width: 660px;
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
@@ -81,7 +81,7 @@
 }
 
 .project-info-sticky {
-  width: 575px;
+  width: 660px;
   flex-shrink: 0;
   position: sticky;
   left: 0;
@@ -95,11 +95,11 @@
     linear-gradient(to right, 
       transparent 39px, var(--border-color) 39px, var(--border-color) 40px,
       transparent 40px, transparent 119px, var(--border-color) 119px, var(--border-color) 120px,
-      transparent 120px, transparent 314px, var(--border-color) 314px, var(--border-color) 315px,
-      transparent 315px, transparent 384px, var(--border-color) 384px, var(--border-color) 385px,
-      transparent 385px, transparent 439px, var(--border-color) 439px, var(--border-color) 440px,
-      transparent 440px, transparent 494px, var(--border-color) 494px, var(--border-color) 495px,
-      transparent 495px
+      transparent 120px, transparent 399px, var(--border-color) 399px, var(--border-color) 400px,
+      transparent 400px, transparent 469px, var(--border-color) 469px, var(--border-color) 470px,
+      transparent 470px, transparent 524px, var(--border-color) 524px, var(--border-color) 525px,
+      transparent 525px, transparent 579px, var(--border-color) 579px, var(--border-color) 580px,
+      transparent 580px
     );
   background-size: 100% 40px, 100% 100%;
 }
@@ -121,7 +121,7 @@
 
 .col-no { width: 40px; flex-shrink: 0; justify-content: center; color: #64748b; font-weight: 600; font-size: 0.78rem; }
 .col-region { width: 80px; flex-shrink: 0; }
-.col-operator { width: 195px; flex-shrink: 0; font-weight: 600; color: #0f172a; }
+.col-operator { width: 280px; flex-shrink: 0; font-weight: 600; color: #0f172a; }
 .col-period { width: 70px; flex-shrink: 0; color: #0284c7; font-weight: 600; }
 .col-dvt { width: 55px; flex-shrink: 0; justify-content: center; color: #475569; }
 .col-pvt { width: 55px; flex-shrink: 0; justify-content: center; color: #475569; }

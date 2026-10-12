@@ -355,7 +355,8 @@ const App = {
     const el = (id) => document.getElementById(id);
     const ivVal = el('input-iv-rounds')?.value;
     const offVal = el('input-off-rounds')?.value;
-    const readyWeekVal = el('input-ready-week')?.value || '2026-W35';
+    const nowIso = window.CertData.getISOWeek(new Date());
+    const readyWeekVal = el('input-ready-week')?.value || window.CertData.toWeekString(nowIso.year, nowIso.week);
     return {
       region: el('input-region')?.value || 'Common',
       operator: el('input-operator')?.value || 'Demo',
@@ -388,12 +389,16 @@ const App = {
     const endWeek = phases[phases.length - 1].endWeek;
     const totalWeeks = window.CertData.weekDiff(endWeek, startWeek) + 1;
 
+    const startRange = window.CertData.getWeekDateRange(startWeek);
+    const endRange = window.CertData.getWeekDateRange(endWeek);
+    const fmtDate = (d) => d.toISOString().slice(0, 10);
+
     const totalWeeksEl = document.getElementById('summary-total-weeks');
     const dateRangeEl = document.getElementById('summary-date-range');
     const periodInput = document.getElementById('input-period');
 
     if (totalWeeksEl) totalWeeksEl.textContent = `总排期 (不含Ready): ${totalWeeks} Wks`;
-    if (dateRangeEl) dateRangeEl.textContent = `测试跨度: ${startWeek} ~ ${endWeek}`;
+    if (dateRangeEl) dateRangeEl.textContent = `测试跨度: ${startWeek} ~ ${endWeek} (${fmtDate(startRange.start)} ~ ${fmtDate(endRange.end)})`;
     if (periodInput) periodInput.value = `${totalWeeks} Wks`;
   },
 
